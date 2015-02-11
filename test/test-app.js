@@ -20,6 +20,7 @@ describe('chromeapps:app', function () {
     assert.file([
       'bower.json',
       'package.json',
+      'gulpfile.coffee',
       '.editorconfig',
       '.jshintrc'
     ]);

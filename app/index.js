@@ -34,7 +34,8 @@ module.exports = yeoman.generators.Base.extend({
 
       [
         ['_package.json', 'package.json'],
-        ['_bower.json', 'bower.json']
+        ['_bower.json', 'bower.json'],
+        ['_gulpfile.coffee', 'gulpfile.coffee']
       ].forEach(function(t){
         this.fs.copyTpl(
           this.templatePath(t[0]),
