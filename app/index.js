@@ -16,41 +16,40 @@ module.exports = yeoman.generators.Base.extend({
       'Welcome to the world-class' + chalk.red('Chromeapps') + ' generator!'
     ));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    var prompts = [];
 
     this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
-
       done();
     }.bind(this));
   },
 
   writing: {
     app: function () {
-      this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
-      );
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
-      );
+
+      [
+        ['_package.json', 'package.json'],
+        ['_bower.json', 'bower.json']
+      ].forEach(function(t){
+        this.fs.copy(
+          this.templatePath(t[0]),
+          this.destinationPath(t[1])
+        );
+      }.bind(this));
+
     },
 
     projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
+
+      [
+        ['editorconfig', '.editorconfig'],
+        ['jshintrc', '.jshintrc']
+      ].forEach(function(t){
+        this.fs.copy(
+          this.templatePath(t[0]),
+          this.destinationPath(t[1])
+        );
+      }.bind(this));
+
     }
   },
 
