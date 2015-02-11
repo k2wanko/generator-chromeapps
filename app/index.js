@@ -16,9 +16,15 @@ module.exports = yeoman.generators.Base.extend({
       'Welcome to the world-class' + chalk.red('Chromeapps') + ' generator!'
     ));
 
-    var prompts = [];
+    var prompts = [{
+      type: 'input',
+      name: 'name',
+      message: 'You app name.',
+      default: this.appname
+    }];
 
     this.prompt(prompts, function (props) {
+      this.name = props.name;
       done();
     }.bind(this));
   },
@@ -30,9 +36,10 @@ module.exports = yeoman.generators.Base.extend({
         ['_package.json', 'package.json'],
         ['_bower.json', 'bower.json']
       ].forEach(function(t){
-        this.fs.copy(
+        this.fs.copyTpl(
           this.templatePath(t[0]),
-          this.destinationPath(t[1])
+          this.destinationPath(t[1]),
+          this
         );
       }.bind(this));
 
