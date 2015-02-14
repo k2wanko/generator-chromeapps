@@ -17,40 +17,49 @@ module.exports = yeoman.generators.Base.extend({
     ));
 
     var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
+      type: 'input',
+      name: 'name',
+      message: 'You app name.',
+      default: this.appname
     }];
 
     this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
-
+      this.name = props.name;
       done();
     }.bind(this));
   },
 
   writing: {
     app: function () {
-      this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
-      );
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
-      );
+
+      [
+        ['_package.json', 'package.json'],
+        ['_bower.json', 'bower.json'],
+        ['_gulpfile.coffee', 'gulpfile.coffee']
+      ].forEach(function(t){
+        this.fs.copyTpl(
+          this.templatePath(t[0]),
+          this.destinationPath(t[1]),
+          this
+        );
+      }.bind(this));
+
+      this.directory('coffee', 'src');
+
     },
 
     projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
+
+      [
+        ['editorconfig', '.editorconfig'],
+        ['jshintrc', '.jshintrc']
+      ].forEach(function(t){
+        this.fs.copy(
+          this.templatePath(t[0]),
+          this.destinationPath(t[1])
+        );
+      }.bind(this));
+
     }
   },
 

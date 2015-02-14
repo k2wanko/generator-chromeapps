@@ -20,8 +20,19 @@ describe('chromeapps:app', function () {
     assert.file([
       'bower.json',
       'package.json',
+      'gulpfile.coffee',
       '.editorconfig',
       '.jshintrc'
     ]);
+  });
+
+  it('create coffee app files', function () {
+    assert.file([
+      'background.coffee',
+      'index.coffee',
+      'index.jade',
+      'manifest.yml',
+      'style.styl'
+    ].map(function(f){ return path.join('src/', f)}));
   });
 });

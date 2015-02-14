@@ -1,0 +1,10 @@
+manifest_version: 2
+name: <%= meta.name %>
+version: <%= meta.version %>
+
+description: <%= meta.description %>
+
+app:
+  background:
+    scripts:
+      - background.js
