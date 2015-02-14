@@ -44,6 +44,8 @@ module.exports = yeoman.generators.Base.extend({
         );
       }.bind(this));
 
+      this.directory('coffee', 'src');
+
     },
 
     projectfiles: function () {
